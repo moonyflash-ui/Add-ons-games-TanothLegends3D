@@ -11,10 +11,11 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 | --- | ---: | --- |
 | [`atlas-navigator`](atlas-navigator/) | 2.0.0 | Carte universelle zoomable avec régions, zones, quêtes, favoris, coordonnées libres et publication d’itinéraires. |
 | [`atlas-route-guide`](atlas-route-guide/) | 1.0.0 | Guide de terrain dépendant d’Atlas Navigator : flèche, cap, distance, danger, territoire adverse et arrivée. |
-| [`dark-fantasy-hud`](dark-fantasy-hud/) | 2.0.0 | HUD Dark Fantasy complet avec portrait réel du personnage 3D équipé, familier, groupe/raid, compétences, XP et mini-carte carrée. |
+| [`dark-fantasy-hud`](dark-fantasy-hud/) | 3.0.0 | HUD Dark Fantasy complet avec portrait 3D, mini-carte ronde ou carrée, flèche joueur, Moral par cases, armes, XP et suivis d’événements configurables. |
 | [`dark-fantasy-world`](dark-fantasy-world/) | 1.0.0 | Ambiance médiévale Dark Fantasy pour les décors, ennemis, personnages, villages, villes et capitales. |
 | [`kikimeter`](kikimeter/) | 1.0.0 | Dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat. |
 | [`quest-helper`](quest-helper/) | 2.0.0 | Optimise la quête à suivre et synchronise automatiquement son itinéraire avec Atlas Navigator et Atlas Route Guide. |
+| [`timekeeper-hud`](timekeeper-hud/) | 1.0.0 | Heure locale IRL, heure du monde et FPS réels dans un affichage compact qui ne masque pas l’action. |
 | [`exemple-hud`](exemple-hud/) | 1.0.0 | Exemple minimal pour apprendre à créer un add-on de HUD. |
 
 ## Installation
@@ -40,7 +41,11 @@ Activez-le avec Atlas Navigator pour conserver une flèche compacte pendant vos 
 
 ### Dark Fantasy HUD
 
-Active un nouveau HUD pour le joueur et son familier, des cadres de groupe et de raid, une barre de compétences remaniée, la progression d’expérience et une mini-carte carrée. Le portrait est capturé directement depuis le modèle 3D équipé dans le monde du jeu.
+Active un nouveau HUD pour le joueur et son familier, des cadres de groupe et de raid, une barre de compétences remaniée, la progression d’expérience mieux centrée et une mini-carte ronde par défaut ou carrée au choix. Le joueur est représenté par une flèche orientée et une destination Atlas apparaît directement sur la mini-carte.
+
+Les suivis **Failles du néant** et **Cimetières / Porte de la mort** sont masqués par défaut et peuvent être réactivés depuis le panneau. Les ensembles **Armes I** et **Armes II** sont espacés et harmonisés avec le style Dark Fantasy. Le Moral utilise des cases avec infobulles : un Boss ou une Élite donne `+5 %`. Une mort retire `−15 %` uniquement en Veteran, HellMode et Legends ; le mode normal conserve seulement le Moral positif.
+
+Le HUD charge automatiquement `timekeeper-hud`, sa dépendance d’affichage compacte.
 
 ### Dark Fantasy World
 
@@ -53,6 +58,10 @@ Ouvrez son panneau pendant un combat pour consulter les dégâts, le DPS, les so
 ### Quest Helper
 
 Choisissez **Plus rentable**, **Plus proche** ou **Déjà suivie**. La meilleure quête devient automatiquement le point de repère du journal et la destination de la suite Atlas. Activer Quest Helper charge automatiquement Atlas Route Guide, qui charge à son tour Atlas Navigator : le classement, la carte et la flèche de terrain restent ainsi synchronisés.
+
+### Heure & FPS
+
+`timekeeper-hud` affiche séparément l’heure locale réelle, l’heure de Tanoth et les FPS mesurés par le moteur 3D. Chaque donnée peut être masquée, les secondes sont optionnelles et le bloc peut être placé en bas à droite, en bas au centre ou en haut au centre.
 
 ## Créer un add-on
 

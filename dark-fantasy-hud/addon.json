@@ -1,13 +1,20 @@
 {
   "id": "dark-fantasy-hud",
   "name": "HUD Dark Fantasy",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "apiVersion": 1,
   "minGameVersion": "41.0",
   "entry": "main.js",
   "styles": ["style.css"],
   "permissions": ["game.read", "game.actions", "ui", "storage"],
+  "dependencies": [
+    {
+      "id": "timekeeper-hud",
+      "minVersion": "1.0.0",
+      "required": true
+    }
+  ],
   "author": "Tanoth Legends 3D",
-  "description": "HUD complet avec portrait réel du modèle 3D équipé, familier, groupe/raid tactique, compétences, progression et mini-carte carrée.",
+  "description": "HUD Dark Fantasy complet : portrait 3D, mini-carte ronde ou carrée, flèche joueur, XP, armes, moral, groupe, raid et événements configurables.",
   "enabledByDefault": false
 }

@@ -1,0 +1,14 @@
+{
+  "id": "timekeeper-hud",
+  "name": "Chronomètre de Tanoth — Heure & FPS",
+  "version": "1.0.0",
+  "apiVersion": 1,
+  "minGameVersion": "41.0",
+  "entry": "main.js",
+  "styles": ["style.css"],
+  "assets": [],
+  "permissions": ["game.read", "game.actions", "ui", "storage"],
+  "author": "Tanoth Legends 3D",
+  "description": "Affichage discret de l’heure locale IRL, de l’heure de Tanoth et des FPS réels du rendu 3D.",
+  "enabledByDefault": false
+}

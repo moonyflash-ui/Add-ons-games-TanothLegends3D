@@ -4,18 +4,20 @@ TanothAddon.register({
   async activate (api) {
     document.body.innerHTML = `
       <main class="panel">
-        <header><span class="sigil"><b>⚔</b></span><div><h1>HUD Dark Fantasy II</h1><p>Interface tactique médiévale</p></div><span class="live">ACTIF</span></header>
+        <header><span class="sigil"><b>⚔</b></span><div><h1>HUD Dark Fantasy III</h1><p>Interface tactique médiévale complète</p></div><span class="live">ACTIF</span></header>
         <section class="preview">
           <div class="identity"><strong id="hero-name">Héros</strong><small id="hero-level">Niveau 1</small></div>
           <div class="bar hp"><i id="hero-hp"></i></div>
           <div class="bar mana"><i id="hero-mana"></i></div>
-          <div class="status"><span id="party-count">Groupe 0</span><span id="raid-count">Raid 0</span><span id="pet-name">Sans familier</span></div>
+          <div class="status"><span id="party-count">Groupe 0</span><span id="raid-count">Raid 0</span><span id="morale-value">Moral 0 %</span><span id="pet-name">Sans familier</span></div>
         </section>
-        <section class="features"><span>◈ Portrait 3D réel</span><span>◈ Rôles et états</span><span>◈ Radar tactique</span></section>
+        <section class="features"><span>◈ Portrait 3D réel</span><span>◈ Moral par cases</span><span>◈ Radar directionnel</span></section>
         <section class="settings">
-          <label class="toggle"><input id="minimap" type="checkbox"> <span>Mini-carte carrée</span></label>
+          <label class="toggle"><input id="minimap" type="checkbox"> <span>Afficher la mini-carte</span></label>
+          <label>Forme mini-carte<select id="mapShape"><option value="round">Ronde (défaut)</option><option value="square">Carrée</option></select></label>
           <label class="toggle"><input id="roster" type="checkbox"> <span>Groupe et raid</span></label>
           <label class="toggle"><input id="distances" type="checkbox"> <span>Distances des alliés</span></label>
+          <label class="toggle"><input id="eventTrackers" type="checkbox"> <span>Suivis Failles et Mort</span></label>
           <label>Échelle<select id="scale"><option value="0.85">85 %</option><option value="1">100 %</option><option value="1.1">110 %</option></select></label>
           <label>Opacité<select id="opacity"><option value="0.82">82 %</option><option value="0.94">94 %</option><option value="1">100 %</option></select></label>
           <label>Mini-carte<select id="mapSize"><option value="180">Petite</option><option value="220">Moyenne</option><option value="270">Grande</option></select></label>
@@ -26,8 +28,8 @@ TanothAddon.register({
         <p class="note" id="message" role="status">Chargement du HUD complet…</p>
       </main>`
 
-    const defaults = Object.freeze({ minimap: true, roster: true, distances: true, scale: 1, opacity: .94, mapSize: 220, mapRange: 300, raidColumns: 2 })
-    const controls = ['minimap', 'roster', 'distances', 'scale', 'opacity', 'mapSize', 'mapRange', 'raidColumns']
+    const defaults = Object.freeze({ minimap: true, mapShape: 'round', roster: true, distances: true, eventTrackers: false, scale: 1, opacity: .94, mapSize: 220, mapRange: 300, raidColumns: 2 })
+    const controls = ['minimap', 'mapShape', 'roster', 'distances', 'eventTrackers', 'scale', 'opacity', 'mapSize', 'mapRange', 'raidColumns']
     let current = { ...defaults, ...(await api.storage.get('settings') || {}) }
 
     const writeControls = settings => controls.forEach(id => {
@@ -37,8 +39,10 @@ TanothAddon.register({
     })
     const readControls = () => ({
       minimap: document.getElementById('minimap').checked,
+      mapShape: document.getElementById('mapShape').value,
       roster: document.getElementById('roster').checked,
       distances: document.getElementById('distances').checked,
+      eventTrackers: document.getElementById('eventTrackers').checked,
       scale: Number(document.getElementById('scale').value),
       opacity: Number(document.getElementById('opacity').value),
       mapSize: Number(document.getElementById('mapSize').value),
@@ -63,6 +67,8 @@ TanothAddon.register({
       document.getElementById('hero-mana').style.width = `${pct(state.player.mana, state.player.maxMana)}%`
       document.getElementById('party-count').textContent = `Groupe ${state.social?.group?.length || 0}`
       document.getElementById('raid-count').textContent = `Raid ${state.social?.raid?.length || 0}`
+      const morale = Number(state.player.morale?.score ?? state.player.morale) || 0
+      document.getElementById('morale-value').textContent = `${morale < 0 ? 'Démoralisation' : 'Moral'} ${morale > 0 ? '+' : ''}${morale} %`
       document.getElementById('pet-name').textContent = state.companion ? `${state.companion.name} · ${Math.floor(state.companion.hp || 0)} PV` : 'Sans familier'
     }
 
@@ -72,7 +78,7 @@ TanothAddon.register({
     api.on('state', render)
     render(await api.game.getState())
     await apply()
-    await api.ui.setTitle('HUD Dark Fantasy II · Contrôle')
+    await api.ui.setTitle('HUD Dark Fantasy III · Contrôle')
     await api.ui.show()
   },
   deactivate (api) {
