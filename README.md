@@ -9,11 +9,12 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 
 | Add-on | Version | Fonction principale |
 | --- | ---: | --- |
-| [`atlas-navigator`](atlas-navigator/) | 1.0.0 | Carte universelle zoomable avec 15 régions, 60 zones, recherche, filtres et guidage vers toutes les factions. |
+| [`atlas-navigator`](atlas-navigator/) | 2.0.0 | Carte universelle zoomable avec régions, zones, quêtes, favoris, coordonnées libres et publication d’itinéraires. |
+| [`atlas-route-guide`](atlas-route-guide/) | 1.0.0 | Guide de terrain dépendant d’Atlas Navigator : flèche, cap, distance, danger, territoire adverse et arrivée. |
 | [`dark-fantasy-hud`](dark-fantasy-hud/) | 2.0.0 | HUD Dark Fantasy complet avec portrait réel du personnage 3D équipé, familier, groupe/raid, compétences, XP et mini-carte carrée. |
 | [`dark-fantasy-world`](dark-fantasy-world/) | 1.0.0 | Ambiance médiévale Dark Fantasy pour les décors, ennemis, personnages, villages, villes et capitales. |
 | [`kikimeter`](kikimeter/) | 1.0.0 | Dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat. |
-| [`quest-helper`](quest-helper/) | 1.1.0 | Sélection de la quête la plus rentable ou la plus proche, flèche, cap, distance, trajet estimé, progression et arrivée. |
+| [`quest-helper`](quest-helper/) | 2.0.0 | Optimise la quête à suivre et synchronise automatiquement son itinéraire avec Atlas Navigator et Atlas Route Guide. |
 | [`exemple-hud`](exemple-hud/) | 1.0.0 | Exemple minimal pour apprendre à créer un add-on de HUD. |
 
 ## Installation
@@ -31,7 +32,11 @@ Version minimale actuellement requise : **Tanoth Legends 3D 41.0**.
 
 ### Atlas Navigator
 
-Utilisez la molette ou les boutons `+` et `−` pour zoomer, puis faites glisser la carte pour la déplacer. Recherchez une région, une zone, une capitale ou un village et choisissez-la pour afficher la direction, le cap, la distance et le temps de trajet estimé. Les destinations des trois factions restent consultables quel que soit le personnage connecté.
+Utilisez la molette ou les boutons `+` et `−` pour zoomer, puis faites glisser la carte pour la déplacer. Recherchez une région, une zone, une capitale, un village ou une quête, choisissez des coordonnées X/Z et conservez vos favoris. La carte trace l’itinéraire, estime le danger et publie la destination pour le guide complémentaire.
+
+### Atlas Route Guide
+
+Activez-le avec Atlas Navigator pour conserver une flèche compacte pendant vos déplacements. Sa dépendance à `atlas-navigator` 2.0 est déclarée dans son manifeste : le jeu charge la carte en premier et l’active automatiquement si nécessaire.
 
 ### Dark Fantasy HUD
 
@@ -47,7 +52,7 @@ Ouvrez son panneau pendant un combat pour consulter les dégâts, le DPS, les so
 
 ### Quest Helper
 
-Choisissez **Plus rentable**, **Plus proche** ou **Déjà suivie**. La meilleure quête devient automatiquement le point de repère du journal. La flèche indique le cap, l’angle, la distance, le temps de trajet estimé et signale l’arrivée à l’objectif.
+Choisissez **Plus rentable**, **Plus proche** ou **Déjà suivie**. La meilleure quête devient automatiquement le point de repère du journal et la destination de la suite Atlas. Activer Quest Helper charge automatiquement Atlas Route Guide, qui charge à son tour Atlas Navigator : le classement, la carte et la flèche de terrain restent ainsi synchronisés.
 
 ## Créer un add-on
 
@@ -73,6 +78,9 @@ Exemple de manifeste :
   "styles": ["style.css"],
   "assets": [],
   "permissions": ["game.read", "ui", "storage"],
+  "dependencies": [
+    { "id": "autre-addon", "minVersion": "1.0.0", "required": true }
+  ],
   "author": "Votre nom",
   "description": "Description courte",
   "enabledByDefault": false
@@ -99,6 +107,8 @@ Permissions acceptées :
 - `storage` : réglages privés et isolés.
 
 Les add-ons n’ont pas accès à Node.js, aux fichiers du joueur, aux sauvegardes, aux clés du launcher ni aux données des autres add-ons.
+
+Le champ optionnel `dependencies` permet de construire plusieurs add-ons complémentaires sans recopier leur logique. Chaque dépendance requise est vérifiée, activée et chargée avant l’add-on qui l’utilise.
 
 ## Ajouter ou mettre à jour un add-on
 
