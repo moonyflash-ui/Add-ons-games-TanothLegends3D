@@ -1,0 +1,13 @@
+{
+  "id": "quest-helper",
+  "name": "Quest Helper — Guide rentable",
+  "version": "1.1.0",
+  "apiVersion": 1,
+  "minGameVersion": "41.0",
+  "entry": "main.js",
+  "styles": ["style.css"],
+  "permissions": ["game.read", "game.actions", "ui", "storage"],
+  "author": "Tanoth Legends 3D",
+  "description": "Choisit automatiquement la meilleure quête, synchronise son point de repère et affiche direction, distance, arrivée, progression et rendement.",
+  "enabledByDefault": false
+}

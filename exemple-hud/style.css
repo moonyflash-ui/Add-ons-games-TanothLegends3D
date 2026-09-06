@@ -1,0 +1,15 @@
+:root {
+  color: #f5e7bd;
+  font: 14px/1.35 Georgia, serif;
+  background: transparent;
+}
+
+body { margin: 0; padding: 14px; background: radial-gradient(circle at top, #25303c, #090c11 72%); }
+.hero-addon { display: grid; gap: 7px; }
+.identity { color: #f6ca67; font-size: 16px; font-weight: 700; }
+.label { display: flex; justify-content: space-between; font-size: 12px; }
+.bar { height: 13px; overflow: hidden; border: 1px solid #b88b39; background: #130606; }
+.bar i { display: block; width: 0; height: 100%; background: linear-gradient(90deg, #870e18, #f04450); transition: width .2s ease; }
+.bar.mana { background: #080923; }
+.bar.mana i { background: linear-gradient(90deg, #172a9d, #6157ff); }
+.details { color: #c6b88e; font-size: 12px; }

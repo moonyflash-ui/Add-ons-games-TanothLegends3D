@@ -1,0 +1,18 @@
+:root { color: #e7dbc4; font: 13px/1.4 Georgia, serif; background: #060708; }
+* { box-sizing: border-box; }
+body { margin: 0; background: linear-gradient(#11151a, #060708); }
+main { padding: 14px; display: grid; gap: 10px; }
+header { display: flex; align-items: center; gap: 11px; }
+header > span { color: #c89a5f; font-size: 36px; text-shadow: 0 0 18px #cf522f; }
+h1 { margin: 0; color: #dfbd7a; font-size: 17px; }
+header p, #status { margin: 2px 0 0; color: #aaa193; font-size: 11px; }
+.scene { height: 54px; position: relative; overflow: hidden; border: 1px solid #4f4234; background: radial-gradient(circle at 74% 25%, #663c32 0 3%, #18212a 4%, #0b0d10 42%, #030405 80%); }
+.scene::before, .scene::after { content: ''; position: absolute; bottom: -8px; width: 65%; height: 34px; background: #080a0b; transform: skewY(-8deg); }
+.scene::after { right: 0; transform: skewY(10deg); }
+.keep { position: absolute; left: 45%; bottom: 2px; z-index: 2; color: #24272a; font-size: 45px; line-height: 1; text-shadow: 0 -1px #5b4a3d; }
+fieldset { display: flex; gap: 15px; border: 1px solid #4f4234; color: #b8ab94; }
+legend { color: #d6b77a; padding: 0 6px; }
+label { white-space: nowrap; }
+input { accent-color: #9d623d; }
+button { padding: 9px; border: 1px solid #9a7145; color: #efdfbb; background: linear-gradient(#352419, #15100d); font: 700 12px Georgia; cursor: pointer; }
+button:hover { border-color: #d9af69; filter: brightness(1.14); }

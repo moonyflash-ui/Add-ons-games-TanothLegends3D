@@ -1,0 +1,13 @@
+{
+  "id": "kikimeter",
+  "name": "KikiMeter — Analyse de combat",
+  "version": "1.0.0",
+  "apiVersion": 1,
+  "minGameVersion": "41.0",
+  "entry": "main.js",
+  "styles": ["style.css"],
+  "permissions": ["game.read", "ui", "storage"],
+  "author": "Tanoth Legends 3D",
+  "description": "Mesure dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat.",
+  "enabledByDefault": false
+}
