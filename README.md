@@ -9,6 +9,7 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 
 | Add-on | Version | Fonction principale |
 | --- | ---: | --- |
+| [`atlas-navigator`](atlas-navigator/) | 1.0.0 | Carte universelle zoomable avec 15 régions, 60 zones, recherche, filtres et guidage vers toutes les factions. |
 | [`dark-fantasy-hud`](dark-fantasy-hud/) | 2.0.0 | HUD Dark Fantasy complet avec portrait réel du personnage 3D équipé, familier, groupe/raid, compétences, XP et mini-carte carrée. |
 | [`dark-fantasy-world`](dark-fantasy-world/) | 1.0.0 | Ambiance médiévale Dark Fantasy pour les décors, ennemis, personnages, villages, villes et capitales. |
 | [`kikimeter`](kikimeter/) | 1.0.0 | Dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat. |
@@ -27,6 +28,10 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 Version minimale actuellement requise : **Tanoth Legends 3D 41.0**.
 
 ## Utilisation
+
+### Atlas Navigator
+
+Utilisez la molette ou les boutons `+` et `−` pour zoomer, puis faites glisser la carte pour la déplacer. Recherchez une région, une zone, une capitale ou un village et choisissez-la pour afficher la direction, le cap, la distance et le temps de trajet estimé. Les destinations des trois factions restent consultables quel que soit le personnage connecté.
 
 ### Dark Fantasy HUD
 

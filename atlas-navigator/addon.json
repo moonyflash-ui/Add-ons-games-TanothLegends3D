@@ -1,0 +1,14 @@
+{
+  "id": "atlas-navigator",
+  "name": "Atlas Navigator — Carte universelle",
+  "version": "1.0.0",
+  "apiVersion": 1,
+  "minGameVersion": "41.0",
+  "entry": "main.js",
+  "styles": ["style.css"],
+  "assets": [],
+  "permissions": ["game.read", "ui", "storage"],
+  "author": "Tanoth Legends 3D",
+  "description": "Carte détaillée zoomable des 15 régions et 60 zones avec recherche et guidage vers toutes les factions.",
+  "enabledByDefault": false
+}
