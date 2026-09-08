@@ -1,13 +1,13 @@
 {
   "id": "dark-fantasy-world",
   "name": "Monde 3D Dark Fantasy",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "apiVersion": 1,
   "minGameVersion": "41.0",
   "entry": "main.js",
   "styles": ["style.css"],
   "permissions": ["game.read", "game.actions", "ui", "storage"],
   "author": "Tanoth Legends 3D",
-  "description": "Dark Fantasy confortable et optimisé : lumière adaptative, contraste doux, brume maîtrisée et relief 3D des personnages.",
+  "description": "Dark Fantasy confortable avec personnages haute illusion : détails de proximité et trois styles de rendu 3D originaux.",
   "enabledByDefault": false
 }

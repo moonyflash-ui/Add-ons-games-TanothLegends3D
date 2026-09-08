@@ -1,6 +1,6 @@
 :root { color: #dce2df; font: 13px/1.4 Georgia, serif; background: #0b1014; }
 * { box-sizing: border-box; }
-body { margin: 0; background: linear-gradient(155deg, #172029, #0b1014 62%); }
+body { margin: 0; overflow: auto; background: linear-gradient(155deg, #172029, #0b1014 62%); }
 main { padding: 14px; display: grid; gap: 11px; }
 header { display: flex; align-items: center; gap: 11px; }
 header > span { color: #b9c9cf; font-size: 34px; text-shadow: 0 3px 10px #000; }
@@ -17,6 +17,12 @@ header p, #status { margin: 2px 0 0; color: #aeb9b9; font-size: 11px; }
 .hero { position: absolute; z-index: 4; right: 18%; bottom: 5px; width: 15px; height: 38px; border-radius: 45% 45% 28% 28%; background: linear-gradient(90deg, #172027, #71818a 48%, #28353d 70%); box-shadow: -5px 3px 12px #0009, 2px -1px 5px #b8d1dc66; }
 .hero::before { content: ''; position: absolute; left: 3px; top: -8px; width: 9px; height: 10px; border-radius: 50%; background: linear-gradient(110deg, #80909a, #27343b); }
 .hero u { position: absolute; left: 50%; bottom: -3px; width: 38px; height: 7px; transform: translateX(-50%); border-radius: 50%; background: #020506a8; filter: blur(2px); }
+.hero em { position: absolute; inset: 2px -3px 0; border: 1px solid transparent; border-radius: 48% 48% 28% 28%; }
+.style-gothic .hero { background: linear-gradient(90deg, #090b10, #768596 44%, #241d2b 72%); box-shadow: -6px 3px 12px #000c, 3px -1px 7px #bca7db8c; }
+.style-gothic .hero em { border-color: #151019; box-shadow: 0 0 5px #b39bce73; }
+.style-illustrated .hero { background: linear-gradient(90deg, #111820 0 32%, #8ca5ae 33% 59%, #30404a 60%); box-shadow: -4px 3px 0 #05080a, 3px -2px 0 #a9c4cb66; }
+.style-illustrated .hero::before { outline: 2px solid #0a0d11; background: linear-gradient(90deg, #9cabb0 0 48%, #35424b 49%); }
+.style-illustrated .hero em { border-color: #090c10; }
 fieldset { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; padding: 8px; border: 1px solid #50606a; color: #c2cdca; }
 legend { color: #dac9a3; padding: 0 6px; }
 .profile { display: flex; align-items: center; gap: 5px; padding: 7px; border: 1px solid #394750; background: #101820; cursor: pointer; }
@@ -26,6 +32,7 @@ legend { color: #dac9a3; padding: 0 6px; }
 .options { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 12px; padding: 8px; border: 1px solid #3e4c55; background: #0c1319; }
 .options label { display: flex; align-items: center; gap: 6px; color: #bdc8c6; }
 .options label:last-child { grid-column: 1 / -1; }
+.character-styles .profile:has(input:checked) { border-color: #98acb5; background: #18242c; box-shadow: inset 0 0 0 1px #65798555; }
 select { flex: 1; margin-left: auto; padding: 4px; border: 1px solid #52636c; color: #dbe2de; background: #151e24; }
 input { accent-color: #7894a1; }
 button { padding: 9px; border: 1px solid #778b91; color: #e7e1ce; background: linear-gradient(#27343a, #151d21); font: 700 12px Georgia; cursor: pointer; }

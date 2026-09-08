@@ -1,4 +1,4 @@
-# Dark Fantasy World 2.0
+# Dark Fantasy World 2.1
 
 Profil visuel médiéval sombre conçu pour rester lisible et confortable pendant les longues sessions.
 
@@ -10,6 +10,12 @@ Profil visuel médiéval sombre conçu pour rester lisible et confortable pendan
 - brume réglable et moins opaque par défaut ;
 - matériaux des personnages lissés avec léger éclairage de contour ;
 - ombre de contact douce sous les personnages pour renforcer l’illusion de volume ;
+- détails haute définition ajoutés automatiquement autour du joueur, avec distance réglable ;
+- trois directions artistiques originales : **Réaliste sombre**, **Gothique sculpté** et **Illustré sombre** ;
+- lumière de relief réservée aux personnages pour mieux séparer armures, visages et silhouettes du décor ;
+- contours maîtrisés pour les styles sculpté et illustré, sans modifier les collisions ni les animations ;
 - profil **Performance** qui réduit les ombres et les effets supplémentaires.
+
+Le résultat imite les grandes familles visuelles des RPG réalistes, des jeux gothiques et des aventures illustrées, sans reprendre les ressources ni l’identité d’un jeu existant. Il s’agit d’une illusion de détail : le maillage de base reste compatible avec le jeu, tandis que les matières, l’éclairage, les silhouettes et les détails de proximité renforcent sa présence à l’écran.
 
 Tous les effets sont réversibles : désactiver l’add-on restaure le thème et les matériaux normaux.
