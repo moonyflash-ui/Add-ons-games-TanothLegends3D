@@ -13,7 +13,7 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 | [`atlas-route-guide`](atlas-route-guide/) | 1.0.0 | Guide de terrain dépendant d’Atlas Navigator : flèche, cap, distance, danger, territoire adverse et arrivée. |
 | [`dark-fantasy-hud`](dark-fantasy-hud/) | 3.0.0 | HUD Dark Fantasy complet avec portrait 3D, mini-carte ronde ou carrée, flèche joueur, Moral par cases, armes, XP et suivis d’événements configurables. |
 | [`dark-fantasy-world`](dark-fantasy-world/) | 2.3.0 | Personnages haute illusion, détails proches et articulations fluides sans modifier le rendu graphique du monde. |
-| [`rift-death-hud`](rift-death-hud/) | 1.0.0 | HUD spécialisé pour les Failles et Portes de la Mort avec vagues, boss, chronomètres et guidage Atlas. |
+| [`rift-death-hud`](rift-death-hud/) | 1.1.0 | HUD compact pour les Failles et Portes de la Mort avec vagues, boss, chronomètres et guidage Atlas. |
 | [`kikimeter`](kikimeter/) | 1.0.0 | Dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat. |
 | [`quest-helper`](quest-helper/) | 2.0.0 | Optimise la quête à suivre et synchronise automatiquement son itinéraire avec Atlas Navigator et Atlas Route Guide. |
 | [`timekeeper-hud`](timekeeper-hud/) | 1.0.0 | Heure locale IRL, heure du monde et FPS réels dans un affichage compact qui ne masque pas l’action. |

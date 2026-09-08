@@ -7,16 +7,18 @@ TanothAddon.register({
     const percent = (value, maximum) => Math.max(0, Math.min(100, (Number(value) || 0) / Math.max(1, Number(maximum) || 1) * 100))
     const duration = milliseconds => { const total = Math.max(0, Math.ceil((Number(milliseconds) || 0) / 1000)), days = Math.floor(total / 86400), hours = Math.floor(total % 86400 / 3600), minutes = Math.floor(total % 3600 / 60), seconds = total % 60; return days ? `${days}j ${String(hours).padStart(2, '0')}h` : hours ? `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}` : `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}` }
     let state = await api.game.getState()
-    let current = { position: 'right-center', compact: false, showRifts: true, showDeathPortals: true, showInactive: true, showTimers: true, scale: 100, opacity: 96, ...(await api.storage.get('settings') || {}) }
+    const saved = await api.storage.get('settings') || {}
+    let current = { position: 'right-center', compact: true, showRifts: true, showDeathPortals: true, showInactive: false, showTimers: true, scale: 90, opacity: 96, ...saved }
+    if (saved.layoutVersion !== 3) current = { ...current, compact: true, showInactive: false, scale: 90, layoutVersion: 3 }
 
     document.body.innerHTML = `<main>
-      <header><span class="brand">☠</span><div><h1>Veilleur du Néant</h1><p>Failles et Portes de la Mort</p></div><b>1.0</b></header>
+      <header><span class="brand">☠</span><div><h1>Veilleur du Néant</h1><p>Failles et Portes de la Mort</p></div><b>1.1</b></header>
       <section id="preview" aria-label="Aperçu du HUD"></section>
       <section class="settings">
         <label>Position<select id="position"><option value="right-center">Droite — centre</option><option value="left-center">Gauche — centre</option><option value="top-center">Haut — centre</option></select></label>
-        <label>Échelle<input id="scale" type="range" min="75" max="120" step="5"><output id="scale-value"></output></label>
+        <label>Échelle<input id="scale" type="range" min="70" max="110" step="5"><output id="scale-value"></output></label>
         <label>Opacité<input id="opacity" type="range" min="55" max="100" step="5"><output id="opacity-value"></output></label>
-        <label><input id="compact" type="checkbox"> Mode compact</label>
+        <label><input id="compact" type="checkbox"> Mode compact recommandé</label>
         <label><input id="showRifts" type="checkbox"> Afficher les Failles</label>
         <label><input id="showDeathPortals" type="checkbox"> Afficher les Portes</label>
         <label><input id="showInactive" type="checkbox"> Veille hors événement</label>
@@ -30,10 +32,10 @@ TanothAddon.register({
       $('position').value = ['right-center', 'left-center', 'top-center'].includes(value.position) ? value.position : 'right-center'
       for (const id of ['compact', 'showRifts', 'showDeathPortals', 'showInactive', 'showTimers']) $(id).checked = value[id] !== false
       $('compact').checked = value.compact === true
-      $('scale').value = String(Math.max(75, Math.min(120, Number(value.scale) || 100)))
+      $('scale').value = String(Math.max(70, Math.min(110, Number(value.scale) || 90)))
       $('opacity').value = String(Math.max(55, Math.min(100, Number(value.opacity) || 96)))
     }
-    const read = () => ({ position: $('position').value, compact: $('compact').checked, showRifts: $('showRifts').checked, showDeathPortals: $('showDeathPortals').checked, showInactive: $('showInactive').checked, showTimers: $('showTimers').checked, scale: Number($('scale').value), opacity: Number($('opacity').value) })
+    const read = () => ({ layoutVersion: 3, position: $('position').value, compact: $('compact').checked, showRifts: $('showRifts').checked, showDeathPortals: $('showDeathPortals').checked, showInactive: $('showInactive').checked, showTimers: $('showTimers').checked, scale: Number($('scale').value), opacity: Number($('opacity').value) })
     const activeDestination = () => {
       const world = state?.world || {}, invasion = world.voidInvasions?.active, death = world.deathPortals?.active, rift = world.rift
       if (invasion?.target && Number.isFinite(Number(invasion.target.x)) && Number.isFinite(Number(invasion.target.z))) return { id: 'void-event-active', name: invasion.major ? 'Invasion majeure du Néant' : 'Faille du Néant', kind: 'void-event', x: Number(invasion.target.x), z: Number(invasion.target.z), regionName: invasion.target.name || invasion.target.zone || 'Implantation attaquée', faction: invasion.target.faction || 'neutral', factionName: 'Événement du Néant', level: `Vague ${invasion.wave || 1}/${invasion.totalWaves || 1}`, color: invasion.major ? '#ff5579' : '#9f66ed' }
@@ -76,7 +78,7 @@ TanothAddon.register({
     api.on('state', value => { state = value; renderPreview() })
     setInterval(renderPreview, 1000)
     await apply()
-    await api.ui.setTitle('Veilleur du Néant — HUD des événements')
+    await api.ui.setTitle('Veilleur du Néant 1.1 — HUD compact')
     await api.ui.show()
   },
   async deactivate (api) {

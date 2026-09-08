@@ -1,7 +1,7 @@
 {
   "id": "rift-death-hud",
   "name": "Veilleur du Néant — Failles & Mort",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "apiVersion": 1,
   "minGameVersion": "41.0",
   "entry": "main.js",
@@ -12,6 +12,6 @@
     { "id": "atlas-navigator", "minVersion": "3.0.0", "required": true }
   ],
   "author": "Tanoth Legends 3D",
-  "description": "HUD dédié aux Failles du Néant, Failles espace-temps et Portes de la Mort, avec progression, boss, chronomètres et guidage Atlas.",
+  "description": "HUD compact dédié aux Failles du Néant, Failles espace-temps et Portes de la Mort, avec progression, boss, chronomètres et guidage Atlas.",
   "enabledByDefault": false
 }
