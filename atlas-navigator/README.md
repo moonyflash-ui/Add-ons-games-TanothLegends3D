@@ -1,17 +1,19 @@
 # Atlas Navigator
 
-Carte détaillée universelle et fournisseur d’itinéraires pour Tanoth Legends 3D. La version 2.0 fonctionne seule et transmet aussi sa destination à l’add-on complémentaire **Atlas Route Guide**.
+Carte détaillée universelle et fournisseur d’itinéraires pour Tanoth Legends 3D. La version 3.0 couvre le monde complet et transmet sa destination aux Add-ons complémentaires.
 
 ## Fonctions
 
-- 3 grands territoires ;
-- 15 régions et 60 zones ;
+- 4 grands territoires, dont le continent central de l’Empyrius ;
+- 18 régions et 72 zones ;
 - capitales, villes, villages, camps et zones de combat ;
 - zoom de 70 % à 450 % avec la molette ou les boutons ;
 - déplacement de la carte par glisser-déposer ;
 - recherche instantanée par nom ;
 - recherche des objectifs de quête actifs ;
-- filtres Violet, Jaune, Rouge ou toutes factions ;
+- filtres Violet, Jaune, Rouge, Empyrius ou monde entier ;
+- marqueurs des Failles actives et des 23 Portes de la Mort ;
+- bouton `✦` pour afficher ou masquer la couche des événements ;
 - favoris persistants et destinations récentes ;
 - saisie de coordonnées X/Z libres ;
 - position actuelle et coordonnées du joueur ;
@@ -29,11 +31,11 @@ Carte détaillée universelle et fournisseur d’itinéraires pour Tanoth Legend
 4. Cliquez sur une zone pour démarrer le guidage.
 5. Suivez la flèche jusqu’à ce que **Destination atteinte** apparaisse.
 
-Pour garder une flèche de navigation compacte ouverte pendant le déplacement, activez également **Atlas Route Guide**. Il dépend d’Atlas Navigator 2.0 et reçoit automatiquement la destination choisie.
+Pour garder une flèche de navigation compacte ouverte pendant le déplacement, activez également **Atlas Route Guide**. Il reçoit automatiquement la destination choisie.
 
 Avec **Quest Helper 2.0**, la quête jugée la plus rentable, la plus proche ou déjà suivie devient automatiquement une destination Atlas et apparaît sur la carte.
 
-Le guidage est disponible pour les lieux des trois factions. Il n’effectue aucune téléportation et ne contourne pas les règles de déplacement du jeu.
+Le guidage est disponible pour les lieux des trois factions, l’Empyrius et les événements actifs. Il n’effectue aucune téléportation et ne contourne pas les règles de déplacement du jeu.
 
 ## Raccourcis
 
@@ -43,3 +45,4 @@ Le guidage est disponible pour les lieux des trois factions. Il n’effectue auc
 - bouton `⌂` : réinitialiser la vue ;
 - bouton `◎` : recentrer la destination.
 - bouton `★` : afficher uniquement les favoris.
+- bouton `✦` : afficher ou masquer les événements mondiaux.

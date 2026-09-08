@@ -32,6 +32,8 @@ legend { color: #dac9a3; padding: 0 6px; }
 .options { display: grid; grid-template-columns: 1fr 1fr; gap: 7px 12px; padding: 8px; border: 1px solid #3e4c55; background: #0c1319; }
 .options label { display: flex; align-items: center; gap: 6px; color: #bdc8c6; }
 .options label:last-child { grid-column: 1 / -1; }
+.world-safe { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: 9px; padding: 8px 10px; border: 1px solid #3f7058; background: linear-gradient(90deg, #0c2018, #0c1319); color: #a9cdbb; font-size: 10px; }
+.world-safe b { color: #7ee0aa; font: 700 9px Consolas; letter-spacing: .08em; }
 .character-styles .profile:has(input:checked) { border-color: #98acb5; background: #18242c; box-shadow: inset 0 0 0 1px #65798555; }
 select { flex: 1; margin-left: auto; padding: 4px; border: 1px solid #52636c; color: #dbe2de; background: #151e24; }
 input { accent-color: #7894a1; }

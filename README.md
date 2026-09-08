@@ -9,10 +9,11 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 
 | Add-on | Version | Fonction principale |
 | --- | ---: | --- |
-| [`atlas-navigator`](atlas-navigator/) | 2.0.0 | Carte universelle zoomable avec régions, zones, quêtes, favoris, coordonnées libres et publication d’itinéraires. |
+| [`atlas-navigator`](atlas-navigator/) | 3.0.0 | Carte complète de 18 régions et 72 zones avec Empyrius, quêtes, Failles, Portes de la Mort et itinéraires. |
 | [`atlas-route-guide`](atlas-route-guide/) | 1.0.0 | Guide de terrain dépendant d’Atlas Navigator : flèche, cap, distance, danger, territoire adverse et arrivée. |
 | [`dark-fantasy-hud`](dark-fantasy-hud/) | 3.0.0 | HUD Dark Fantasy complet avec portrait 3D, mini-carte ronde ou carrée, flèche joueur, Moral par cases, armes, XP et suivis d’événements configurables. |
-| [`dark-fantasy-world`](dark-fantasy-world/) | 2.2.0 | Personnages haute illusion avec détails proches, huit pivots articulés, mouvements fluides et trois styles originaux. |
+| [`dark-fantasy-world`](dark-fantasy-world/) | 2.3.0 | Personnages haute illusion, détails proches et articulations fluides sans modifier le rendu graphique du monde. |
+| [`rift-death-hud`](rift-death-hud/) | 1.0.0 | HUD spécialisé pour les Failles et Portes de la Mort avec vagues, boss, chronomètres et guidage Atlas. |
 | [`kikimeter`](kikimeter/) | 1.0.0 | Dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat. |
 | [`quest-helper`](quest-helper/) | 2.0.0 | Optimise la quête à suivre et synchronise automatiquement son itinéraire avec Atlas Navigator et Atlas Route Guide. |
 | [`timekeeper-hud`](timekeeper-hud/) | 1.0.0 | Heure locale IRL, heure du monde et FPS réels dans un affichage compact qui ne masque pas l’action. |
@@ -33,7 +34,7 @@ Version minimale actuellement requise : **Tanoth Legends 3D 41.0**.
 
 ### Atlas Navigator
 
-Utilisez la molette ou les boutons `+` et `−` pour zoomer, puis faites glisser la carte pour la déplacer. Recherchez une région, une zone, une capitale, un village ou une quête, choisissez des coordonnées X/Z et conservez vos favoris. La carte trace l’itinéraire, estime le danger et publie la destination pour le guide complémentaire.
+Utilisez la molette ou les boutons `+` et `−` pour zoomer, puis faites glisser la carte pour la déplacer. Recherchez parmi les 18 régions et 72 zones, l’Empyrius, les quêtes et les événements. Le bouton `✦` affiche les Failles et les 23 Portes de la Mort. La carte trace ensuite l’itinéraire et publie la destination pour le guide complémentaire.
 
 ### Atlas Route Guide
 
@@ -49,7 +50,11 @@ Le HUD charge automatiquement `timekeeper-hud`, sa dépendance d’affichage com
 
 ### Dark Fantasy World
 
-Applique au moteur 3D une palette sombre plus douce, un éclairage chaud/froid équilibré, une brume réglable et un relief visuel pour mieux détacher les personnages du décor. Trois profils sont disponibles : **Confort** recommandé, **Immersif** et **Performance**. La lumière anti-fatigue et le relief 3D peuvent être désactivés séparément.
+Améliore uniquement les personnages : matières, relief de proximité, trois styles originaux et articulations fluides. Depuis la version 2.3, l’Add-on n’applique plus aucun filtre, brouillard, contraste, saturation ni profil graphique au monde ou aux décors.
+
+### Veilleur du Néant
+
+Remplace les anciens suivis des **Failles du Néant**, des Failles espace-temps et des **Portes de la Mort** par un HUD animé. Il affiche le lieu, la vague, les ennemis restants, le boss et les chronomètres. Un bouton envoie directement l’événement actif dans Atlas Navigator 3.0.
 
 ### KikiMeter
 

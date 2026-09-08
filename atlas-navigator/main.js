@@ -35,6 +35,15 @@ TanothAddon.register({
           ['desert-rouge', 'Désert Rouge', 865, 190, [['bastion-dunes-sanglantes', 'Bastion des Dunes Sanglantes', '45–90', -1700, 900, 'ville'], ['mer-cendres', 'Mer de Cendres', '45–90', -1710, 940, 'zone'], ['dunes-sanglantes', 'Dunes Sanglantes', '40–85', -1510, 780, 'zone'], ['forges-sirocco', 'Forges du Sirocco', '60–100', -1880, 1120, 'ville']]],
           ['marches-sauvages', 'Marches Sauvages', 720, 315, [['fer-sec', 'Fer-Sec', '30–70', -1140, 760, 'village'], ['vallee-betes', 'Vallée des Bêtes', '35–80', -1260, 590, 'zone'], ['col-griffon', 'Col du Griffon', '40–85', 780, 1810, 'village'], ['vieux-chene', 'Vieux-Chêne', '20–60', -1850, 280, 'village']]]
         ]
+      },
+      {
+        id: 'continent-empyrius', name: 'Grand continent de l’Empyrius', faction: 'neutral', factionName: 'Empyrius', color: '#62d6df', labelX: 505, labelY: 459,
+        path: 'M348 424 C389 386 445 396 485 411 C524 383 587 393 644 429 C675 449 657 497 620 516 C572 541 511 525 471 516 C425 532 363 516 333 486 C311 463 321 442 348 424 Z',
+        regions: [
+          ['cite-perdue-empyrius', 'Cité perdue de l’Empyrius', 485, 439, [['cite-centrale-empyrius', 'Cité centrale', '100+', -72, -54, 'cité'], ['couronne-forteresses', 'Couronne des Forteresses', '100+', 68, -48, 'guerre'], ['catacombes-imperiales', 'Catacombes Impériales', '100+', -58, 64, 'zone'], ['hauts-remparts', 'Hauts Remparts', '100+', 72, 62, 'zone']]],
+          ['marches-empyrius', 'Marches extérieures de l’Empyrius', 405, 474, [['forteresses-du-nord', 'Forteresses du Nord', '100+', -72, 466, 'forteresse'], ['forteresses-du-sud', 'Forteresses du Sud', '100+', 68, 472, 'forteresse'], ['tours-du-crepuscule', 'Tours du Crépuscule', '100+', -58, 584, 'zone'], ['sanctuaires-parchemins', 'Sanctuaires des Parchemins', '100+', 72, 582, 'sanctuaire']]],
+          ['profondeurs-empyrius', 'Profondeurs de l’Empyrius', 579, 485, [['abimes-impyrius', 'Abîmes de l’Empyrius', 'Prestige 10+', -72, -574, 'zone'], ['temple-noir', 'Temple Noir', 'Prestige 20+', 68, -568, 'sanctuaire'], ['galeries-perdues', 'Galeries Perdues', 'Prestige 5+', -58, -456, 'zone'], ['trone-des-tenebres', 'Trône des Ténèbres', 'Prestige 50+', 72, -458, 'raid']]]
+        ]
       }
     ]
 
@@ -57,7 +66,7 @@ TanothAddon.register({
     const clean = value => String(value ?? '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase()
     const esc = value => String(value ?? '').replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char])
     const clamp = (value, min, max) => Math.max(min, Math.min(max, Number(value) || 0))
-    const factionLabel = { violet: 'Arcanes Violettes', jaune: 'Ordre Solaire', rouge: 'Orbe Écarlate' }
+    const factionLabel = { violet: 'Arcanes Violettes', jaune: 'Ordre Solaire', rouge: 'Orbe Écarlate', neutral: 'Empyrius' }
     let state = await api.game.getState()
     let selectedId = String(await api.storage.get('destination') || '')
     let filter = String(await api.storage.get('faction') || 'all')
@@ -67,16 +76,17 @@ TanothAddon.register({
     let favorites = Array.isArray(savedFavorites) ? savedFavorites.map(String) : []
     let recent = Array.isArray(savedRecent) ? savedRecent.map(String) : []
     let customTarget = await api.storage.get('customTarget') || null
+    let showEvents = await api.storage.get('showEvents') !== false
     let favoritesOnly = false
     let panX = 0; let panY = 0; let dragging = false; let moved = false; let dragX = 0; let dragY = 0; let arrivalNotified = false
 
     document.body.innerHTML = `<main>
-      <header><button id="atlas-list" title="Rechercher un lieu">☰</button><label><span>⌕</span><input id="atlas-search" placeholder="Région, zone, quête…" autocomplete="off"></label><button id="atlas-favorites" title="Afficher les favoris">★</button><button id="atlas-minus" title="Dézoomer">−</button><output id="atlas-zoom">100%</output><button id="atlas-plus" title="Zoomer">+</button><button id="atlas-reset" title="Recentrer">⌂</button></header>
-      <nav id="atlas-factions"><button data-faction="all">Tout</button><button data-faction="violet">Violet</button><button data-faction="jaune">Jaune</button><button data-faction="rouge">Rouge</button></nav>
-      <section id="atlas-viewport" aria-label="Carte détaillée de Tanoth"><div id="atlas-plane"><svg id="atlas-map" viewBox="0 0 1000 540" role="img" aria-label="15 régions et 60 zones"></svg></div><div id="atlas-compass"><b>N</b><i></i></div><div id="atlas-scale">Glissez pour déplacer · Molette pour zoomer</div></section>
+      <header><button id="atlas-list" title="Rechercher un lieu">☰</button><label><span>⌕</span><input id="atlas-search" placeholder="Région, zone, événement…" autocomplete="off"></label><button id="atlas-favorites" title="Afficher les favoris">★</button><button id="atlas-events" title="Afficher les Failles et Portes de la Mort">✦</button><button id="atlas-minus" title="Dézoomer">−</button><output id="atlas-zoom">100%</output><button id="atlas-plus" title="Zoomer">+</button><button id="atlas-reset" title="Recentrer">⌂</button></header>
+      <nav id="atlas-factions"><button data-faction="all">Tout</button><button data-faction="violet">Violet</button><button data-faction="jaune">Jaune</button><button data-faction="rouge">Rouge</button><button data-faction="neutral">Empyrius</button></nav>
+      <section id="atlas-viewport" aria-label="Carte détaillée de Tanoth"><div id="atlas-plane"><svg id="atlas-map" viewBox="0 0 1000 540" role="img" aria-label="18 régions et 72 zones"></svg></div><div id="atlas-compass"><b>N</b><i></i></div><div id="atlas-scale">Glissez pour déplacer · Molette pour zoomer</div></section>
       <aside id="atlas-results"></aside>
-      <section id="atlas-route"><div class="empty"><strong>Choisissez une destination</strong><span>La navigation fonctionne vers les trois factions.</span></div></section>
-      <footer><span><b>15</b> régions</span><span><b>60</b> zones</span><span id="atlas-quest-count"><b>0</b> quête</span><span id="atlas-current">Position en attente…</span></footer>
+      <section id="atlas-route"><div class="empty"><strong>Choisissez une destination</strong><span>Toutes les factions, l’Empyrius et les événements sont reliés.</span></div></section>
+      <footer><span><b>${regions.length}</b> régions</span><span><b>${zones.length}</b> zones</span><span id="atlas-event-count"><b>0</b> événement</span><span id="atlas-quest-count"><b>0</b> quête</span><span id="atlas-current">Position en attente…</span></footer>
     </main>`
 
     const playerPosition = () => state?.player?.position || { x: 0, z: 0, rotation: 0 }
@@ -91,13 +101,41 @@ TanothAddon.register({
       const near = nearestMapPoint(customTarget.x, customTarget.z)
       return { id: 'custom-coordinate', name: customTarget.name || 'Coordonnées personnalisées', kind: 'custom', x: Number(customTarget.x), z: Number(customTarget.z), mapX: near?.mapX || 510, mapY: near?.mapY || 472, regionName: near?.regionName || 'Monde libre', faction: near?.faction || 'neutral', factionName: near?.factionName || 'Destination libre', color: '#ffffff', level: 'libre' }
     }
-    const destinationCatalog = () => [...baseDestinations, ...questDestinations(), ...(customDestination() ? [customDestination()] : [])]
+    const eventDestinations = () => {
+      const result = [], world = state?.world || {}, death = world.deathPortals || {}, activeDeathId = death.active?.cemeteryId
+      for (const [index, cemetery] of (death.cemeteries || []).entries()) {
+        if (!Number.isFinite(Number(cemetery.x)) || !Number.isFinite(Number(cemetery.z))) continue
+        const near = nearestMapPoint(cemetery.x, cemetery.z), active = cemetery.id === activeDeathId, offset = (index % 5) - 2
+        result.push({ id: `death-event-${cemetery.id}`, name: cemetery.name || 'Porte de la Mort', kind: 'death-portal', x: Number(cemetery.x), z: Number(cemetery.z), mapX: (near?.mapX || 510) + offset * 2.5, mapY: (near?.mapY || 472) + (index % 2 ? 7 : -7), regionName: cemetery.zone || cemetery.region || near?.regionName || 'Cimetière', faction: cemetery.faction || near?.faction || 'neutral', factionName: factionLabel[cemetery.faction] || 'Portes de la Mort', color: active ? '#ff596b' : '#bd5363', level: active ? `ACTIF · Vague ${death.active.wave || 1}/11` : 'Cycle de 10 min', eventActive: active })
+      }
+      const rift = world.rift
+      if (rift?.active) {
+        const position = playerPosition(), near = nearestMapPoint(position.x, position.z)
+        result.push({ id: 'rift-event-active', name: 'Faille espace-temps active', kind: 'rift-event', x: Number(position.x) || 0, z: Number(position.z) || 0, mapX: (near?.mapX || 510) + 9, mapY: (near?.mapY || 472) - 12, regionName: rift.region || near?.regionName || 'Faille', faction: near?.faction || 'neutral', factionName: 'Faille active', color: '#b372ff', level: `Vague ${rift.wave || 1}/${rift.totalWaves || 4} · ${rift.kills || 0}/${rift.required || 1}`, eventActive: true })
+      }
+      const invasion = world.voidInvasions?.active, target = invasion?.target
+      if (invasion && Number.isFinite(Number(target?.x)) && Number.isFinite(Number(target?.z))) {
+        const near = nearestMapPoint(target.x, target.z)
+        result.push({ id: 'void-event-active', name: invasion.major ? 'Invasion majeure du Néant' : 'Faille du Néant active', kind: 'void-event', x: Number(target.x), z: Number(target.z), mapX: (near?.mapX || 510) - 9, mapY: (near?.mapY || 472) - 12, regionName: target.name || target.zone || near?.regionName || 'Implantation attaquée', faction: target.faction || near?.faction || 'neutral', factionName: invasion.major ? 'Invasion majeure' : 'Faille du Néant', color: invasion.major ? '#ff5579' : '#9f66ed', level: `Vague ${invasion.wave || 1}/${invasion.totalWaves || 1} · ${invasion.kills || 0}/${invasion.required || 1}`, eventActive: true })
+      }
+      return result
+    }
+    const isEvent = entry => ['death-portal', 'rift-event', 'void-event'].includes(entry?.kind)
+    const markerIcon = entry => entry.kind === 'quest' ? '!' : entry.kind === 'custom' ? 'X' : entry.kind === 'death-portal' ? '☠' : entry.kind === 'void-event' ? '✦' : '◉'
+    const kindLabel = entry => entry.kind === 'region' ? 'Région' : entry.kind === 'quest' ? 'Quête' : entry.kind === 'custom' ? 'Coordonnées' : entry.kind === 'death-portal' ? 'Porte de la Mort' : entry.kind === 'void-event' ? 'Faille du Néant' : entry.kind === 'rift-event' ? 'Faille espace-temps' : 'Zone'
+    const destinationCatalog = () => [...baseDestinations, ...eventDestinations(), ...questDestinations(), ...(customDestination() ? [customDestination()] : [])]
     const destination = () => destinationCatalog().find(entry => entry.id === selectedId) || null
     const currentName = () => {
       const world = state?.world || {}, value = world.zone?.name || world.zone || world.map?.zone || world.map?.name
       return typeof value === 'string' && value ? value : nearestZone()?.name || 'Monde de Tanoth'
     }
     const formatDistance = value => value < 1000 ? `${Math.round(value)} m` : `${(value / 1000).toFixed(value < 10000 ? 1 : 0)} km`
+    const refreshCounters = () => {
+      const questCount = questDestinations().length, eventCount = eventDestinations().filter(entry => entry.eventActive).length
+      $('atlas-quest-count').innerHTML = `<b>${questCount}</b> quête${questCount === 1 ? '' : 's'}`
+      $('atlas-event-count').innerHTML = `<b>${eventCount}</b> événement${eventCount === 1 ? '' : 's'} actif${eventCount === 1 ? '' : 's'}`
+      $('atlas-events').classList.toggle('active', showEvents)
+    }
     const direction = target => {
       const position = playerPosition(), dx = Number(target.x) - Number(position.x || 0), dz = Number(target.z) - Number(position.z || 0), distance = Math.hypot(dx, dz), absolute = Math.atan2(dx, dz), relative = Math.atan2(Math.sin(absolute - Number(position.rotation || 0)), Math.cos(absolute - Number(position.rotation || 0))), degrees = (absolute * 180 / Math.PI + 360) % 360, cardinal = ['N', 'NE', 'E', 'SE', 'S', 'SO', 'O', 'NO'][Math.round(degrees / 45) % 8]
       return { distance, relative: relative * 180 / Math.PI, degrees, cardinal, eta: Math.ceil(distance / 5.5) }
@@ -105,12 +143,13 @@ TanothAddon.register({
 
     function mapMarkup () {
       const current = nearestZone(), selected = destination(), rotation = Number(playerPosition().rotation || 0) * 180 / Math.PI
-      const specials = destinationCatalog().filter(entry => entry.kind === 'quest' || entry.kind === 'custom')
+      const specials = destinationCatalog().filter(entry => entry.kind === 'quest' || entry.kind === 'custom' || (showEvents && isEvent(entry)))
       const route = current && selected ? `<g class="route-path"><line x1="${current.mapX}" y1="${current.mapY}" x2="${selected.mapX}" y2="${selected.mapY}"/><circle cx="${selected.mapX}" cy="${selected.mapY}" r="12"/></g>` : ''
       return `<defs>${lands.map(land => `<linearGradient id="land-${land.id}" x1="0" y1="0" x2="1" y2="1"><stop stop-color="${land.color}" stop-opacity=".9"/><stop offset="1" stop-color="#15202a"/></linearGradient>`).join('')}</defs><rect width="1000" height="540" class="sea"/>${lands.map(land => {
         const hidden = filter !== 'all' && filter !== land.faction
-        return `<g class="territory faction-${land.faction}${hidden ? ' filtered' : ''}"><path class="land" d="${land.path}" fill="url(#land-${land.id})"/><text class="land-name" x="${land.faction === 'violet' ? 178 : land.faction === 'jaune' ? 510 : 816}" y="${land.faction === 'jaune' ? 215 : 225}">${esc(land.name)}</text>${land.regions.map(region => `<g class="region-marker${selected?.id === region.id ? ' selected' : ''}" data-destination="${region.id}"><circle cx="${region.mapX}" cy="${region.mapY}" r="8" style="--color:${land.color}"/><text x="${region.mapX}" y="${region.mapY + 20}">${esc(region.name)}</text></g>${region.zones.map(zone => `<g class="zone-marker${selected?.id === zone.id ? ' selected' : ''}${current?.id === zone.id ? ' current' : ''}" data-destination="${zone.id}"><circle cx="${zone.mapX}" cy="${zone.mapY}" r="4" style="--color:${land.color}"/><text x="${zone.mapX}" y="${zone.mapY + 11}">${esc(zone.name)}</text></g>`).join('')}`).join('')}</g>`
-      }).join('')}${route}${specials.map(entry => `<g class="special-marker ${entry.kind}${selected?.id === entry.id ? ' selected' : ''}" data-destination="${esc(entry.id)}"><circle cx="${entry.mapX}" cy="${entry.mapY}" r="7" style="--color:${entry.color}"/><text x="${entry.mapX}" y="${entry.mapY + 2}">${entry.kind === 'quest' ? '!' : 'X'}</text><title>${esc(entry.name)}</title></g>`).join('')}<g class="landmark" data-destination="domaine-astral"><path d="M510 459 l13 13 -13 13 -13-13z"/><text x="510" y="502">Cité perdue de l’Empyrius</text></g>${current ? `<g class="player-marker" transform="rotate(${rotation} ${current.mapX} ${current.mapY})"><circle cx="${current.mapX}" cy="${current.mapY}" r="10"/><path d="M${current.mapX} ${current.mapY - 14} l6 15 -6 -4 -6 4z"/></g>` : ''}`
+        const labelX = land.labelX || (land.faction === 'violet' ? 178 : land.faction === 'jaune' ? 510 : 816), labelY = land.labelY || (land.faction === 'jaune' ? 215 : 225)
+        return `<g class="territory faction-${land.faction}${hidden ? ' filtered' : ''}"><path class="land" d="${land.path}" fill="url(#land-${land.id})"/><text class="land-name" x="${labelX}" y="${labelY}">${esc(land.name)}</text>${land.regions.map(region => `<g class="region-marker${selected?.id === region.id ? ' selected' : ''}" data-destination="${region.id}"><circle cx="${region.mapX}" cy="${region.mapY}" r="8" style="--color:${land.color}"/><text x="${region.mapX}" y="${region.mapY + 20}">${esc(region.name)}</text></g>${region.zones.map(zone => `<g class="zone-marker${selected?.id === zone.id ? ' selected' : ''}${current?.id === zone.id ? ' current' : ''}" data-destination="${zone.id}"><circle cx="${zone.mapX}" cy="${zone.mapY}" r="4" style="--color:${land.color}"/><text x="${zone.mapX}" y="${zone.mapY + 11}">${esc(zone.name)}</text></g>`).join('')}`).join('')}</g>`
+      }).join('')}${route}${specials.map(entry => `<g class="special-marker ${entry.kind}${entry.eventActive ? ' active-event' : ''}${selected?.id === entry.id ? ' selected' : ''}" data-destination="${esc(entry.id)}"><circle cx="${entry.mapX}" cy="${entry.mapY}" r="${entry.eventActive ? 9 : 7}" style="--color:${entry.color}"/><text x="${entry.mapX}" y="${entry.mapY + 2}">${markerIcon(entry)}</text><title>${esc(entry.name)} · ${esc(entry.level)}</title></g>`).join('')}${current ? `<g class="player-marker" transform="rotate(${rotation} ${current.mapX} ${current.mapY})"><circle cx="${current.mapX}" cy="${current.mapY}" r="10"/><path d="M${current.mapX} ${current.mapY - 14} l6 15 -6 -4 -6 4z"/></g>` : ''}`
     }
 
     function applyTransform () {
@@ -128,9 +167,9 @@ TanothAddon.register({
     function renderResults () {
       const query = clean($('atlas-search').value), panel = $('atlas-results')
       const position = playerPosition(), rank = id => { const index = recent.indexOf(id); return index < 0 ? 999 : index }
-      const list = destinationCatalog().filter(entry => (filter === 'all' || entry.faction === filter || entry.kind === 'custom' || entry.kind === 'quest') && (!favoritesOnly || favorites.includes(entry.id)) && (!query || clean(`${entry.name} ${entry.regionName || ''} ${entry.factionName} ${entry.kind}`).includes(query))).sort((a, b) => Number(favorites.includes(b.id)) - Number(favorites.includes(a.id)) || Number(b.kind === 'quest') - Number(a.kind === 'quest') || rank(a.id) - rank(b.id) || Math.hypot(a.x - Number(position.x || 0), a.z - Number(position.z || 0)) - Math.hypot(b.x - Number(position.x || 0), b.z - Number(position.z || 0))).slice(0, 30)
+      const list = destinationCatalog().filter(entry => (filter === 'all' || entry.faction === filter || entry.kind === 'custom' || entry.kind === 'quest') && (!favoritesOnly || favorites.includes(entry.id)) && (!query || clean(`${entry.name} ${entry.regionName || ''} ${entry.factionName} ${entry.kind} ${kindLabel(entry)}`).includes(query))).sort((a, b) => Number(favorites.includes(b.id)) - Number(favorites.includes(a.id)) || Number(b.eventActive) - Number(a.eventActive) || Number(b.kind === 'quest') - Number(a.kind === 'quest') || rank(a.id) - rank(b.id) || Math.hypot(a.x - Number(position.x || 0), a.z - Number(position.z || 0)) - Math.hypot(b.x - Number(position.x || 0), b.z - Number(position.z || 0))).slice(0, 30)
       const custom = customDestination(), x = Math.round(custom?.x ?? Number(position.x || 0)), z = Math.round(custom?.z ?? Number(position.z || 0))
-      panel.innerHTML = `<div class="result-head"><strong>${favoritesOnly ? 'Favoris' : query ? 'Résultats' : 'Destinations proches'}</strong><span>${list.length}${list.length === 30 ? '+' : ''}</span></div><form id="atlas-coordinates"><strong>Coordonnées libres</strong><label>X <input name="x" type="number" value="${x}" required></label><label>Z <input name="z" type="number" value="${z}" required></label><button>Guider</button></form>${list.map(entry => `<button data-result="${esc(entry.id)}" class="${favorites.includes(entry.id) ? 'favorite' : ''}" style="--color:${entry.color}"><i>${entry.kind === 'quest' ? '!' : favorites.includes(entry.id) ? '★' : ''}</i><span><strong>${esc(entry.name)}</strong><small>${entry.kind === 'region' ? 'Région' : entry.kind === 'quest' ? `Quête · ${esc(entry.regionName)}` : entry.kind === 'custom' ? 'Coordonnées personnalisées' : esc(entry.regionName)} · ${formatDistance(Math.hypot(entry.x - Number(position.x || 0), entry.z - Number(position.z || 0)))}</small></span><b>${entry.kind === 'region' ? 'RÉGION' : entry.kind === 'quest' ? 'QUÊTE' : entry.kind === 'custom' ? 'X/Z' : `N. ${esc(entry.level)}`}</b></button>`).join('') || '<p>Aucun lieu trouvé.</p>'}`
+      panel.innerHTML = `<div class="result-head"><strong>${favoritesOnly ? 'Favoris' : query ? 'Résultats' : 'Destinations proches'}</strong><span>${list.length}${list.length === 30 ? '+' : ''}</span></div><form id="atlas-coordinates"><strong>Coordonnées libres</strong><label>X <input name="x" type="number" value="${x}" required></label><label>Z <input name="z" type="number" value="${z}" required></label><button>Guider</button></form>${list.map(entry => `<button data-result="${esc(entry.id)}" class="${favorites.includes(entry.id) ? 'favorite' : ''}${entry.eventActive ? ' event-active' : ''}" style="--color:${entry.color}"><i>${entry.eventActive || isEvent(entry) || entry.kind === 'quest' || entry.kind === 'custom' ? markerIcon(entry) : favorites.includes(entry.id) ? '★' : ''}</i><span><strong>${esc(entry.name)}</strong><small>${esc(kindLabel(entry))} · ${esc(entry.regionName || entry.factionName)} · ${formatDistance(Math.hypot(entry.x - Number(position.x || 0), entry.z - Number(position.z || 0)))}</small></span><b>${entry.eventActive ? 'ACTIF' : entry.kind === 'region' ? 'RÉGION' : entry.kind === 'quest' ? 'QUÊTE' : entry.kind === 'custom' ? 'X/Z' : isEvent(entry) ? esc(entry.level) : `N. ${esc(entry.level)}`}</b></button>`).join('') || '<p>Aucun lieu trouvé.</p>'}`
       panel.querySelectorAll('[data-result]').forEach(button => { button.onclick = () => selectDestination(button.dataset.result, true) })
       $('atlas-coordinates').onsubmit = event => { event.preventDefault(); const data = new FormData(event.currentTarget), nextX = Number(data.get('x')), nextZ = Number(data.get('z')); if (!Number.isFinite(nextX) || !Number.isFinite(nextZ)) return; customTarget = { name: `Point X ${Math.round(nextX)} / Z ${Math.round(nextZ)}`, x: clamp(nextX, -9999, 9999), z: clamp(nextZ, -9999, 9999) }; api.storage.set('customTarget', customTarget); selectDestination('custom-coordinate', true) }
     }
@@ -169,7 +208,7 @@ TanothAddon.register({
     }
 
     function levelAssessment (target) {
-      if (!target || ['region', 'quest', 'custom'].includes(target.kind)) return { className: 'neutral', label: target?.kind === 'quest' ? 'OBJECTIF DE QUÊTE' : 'DESTINATION LIBRE' }
+      if (!target || ['region', 'quest', 'custom'].includes(target.kind) || isEvent(target)) return { className: 'neutral', label: target?.kind === 'quest' ? 'OBJECTIF DE QUÊTE' : isEvent(target) ? (target.eventActive ? 'ÉVÉNEMENT ACTIF' : 'EMPLACEMENT D’ÉVÉNEMENT') : 'DESTINATION LIBRE' }
       const values = String(target.level || '').match(/\d+/g)?.map(Number) || [], minimum = values[0] || 1, maximum = values[1] || values[0] || 100, level = Math.max(1, Number(state?.player?.level) || 1)
       if (level + 5 < minimum) return { className: 'danger', label: `DANGEREUX · NIV. ${minimum}+` }
       if (level > maximum + 15) return { className: 'easy', label: 'ZONE FACILE' }
@@ -183,7 +222,7 @@ TanothAddon.register({
       const guide = direction(target), arrived = guide.distance <= 25, eta = guide.eta < 60 ? `${guide.eta} s` : guide.eta < 3600 ? `${Math.ceil(guide.eta / 60)} min` : `${(guide.eta / 3600).toFixed(1)} h`, assessment = levelAssessment(target), hostile = target.faction && target.faction !== 'neutral' && target.faction !== state?.identity?.faction
       route.classList.toggle('arrived', arrived)
       route.classList.toggle('hostile', hostile); route.classList.toggle('danger', assessment.className === 'danger')
-      route.innerHTML = `<div class="route-arrow" style="--turn:${guide.relative}deg"><i></i><b>${guide.cardinal}</b><small>${String(Math.round(guide.degrees)).padStart(3, '0')}°</small></div><div class="route-copy"><strong>${arrived ? 'Destination atteinte — ' : ''}${esc(target.name)}</strong><span>${target.kind === 'region' ? 'Région' : esc(target.regionName)} · ${esc(target.factionName)}${hostile ? ' · territoire adverse' : ''}</span><em>${formatDistance(guide.distance)} · environ ${eta} · X ${Math.round(target.x)} / Z ${Math.round(target.z)}</em><small class="route-risk ${assessment.className}">${assessment.label}</small></div><div class="route-actions"><button id="route-favorite" title="Ajouter ou retirer des favoris" ${target.kind === 'quest' ? 'disabled' : ''}>${favorites.includes(target.id) ? '★' : '☆'}</button><button id="route-center" title="Centrer sur la destination">◎</button><button id="route-clear" title="Effacer la destination">×</button></div>`
+      route.innerHTML = `<div class="route-arrow" style="--turn:${guide.relative}deg"><i></i><b>${guide.cardinal}</b><small>${String(Math.round(guide.degrees)).padStart(3, '0')}°</small></div><div class="route-copy"><strong>${arrived ? 'Destination atteinte — ' : ''}${esc(target.name)}</strong><span>${esc(kindLabel(target))} · ${esc(target.regionName || target.factionName)}${hostile ? ' · territoire adverse' : ''}</span><em>${formatDistance(guide.distance)} · environ ${eta} · X ${Math.round(target.x)} / Z ${Math.round(target.z)}</em><small class="route-risk ${assessment.className}">${assessment.label}</small></div><div class="route-actions"><button id="route-favorite" title="Ajouter ou retirer des favoris" ${target.kind === 'quest' || isEvent(target) ? 'disabled' : ''}>${favorites.includes(target.id) ? '★' : '☆'}</button><button id="route-center" title="Centrer sur la destination">◎</button><button id="route-clear" title="Effacer la destination">×</button></div>`
       $('route-favorite').onclick = toggleFavorite
       $('route-center').onclick = () => { centerDestination(); applyTransform() }
       $('route-clear').onclick = () => selectDestination('')
@@ -202,12 +241,13 @@ TanothAddon.register({
       zoom = next; api.storage.set('zoom', zoom); applyTransform()
     }
     function resetView () { zoom = 1; panX = 0; panY = 0; api.storage.set('zoom', zoom); applyTransform() }
-    function setFilter (value) { filter = ['all', 'violet', 'jaune', 'rouge'].includes(value) ? value : 'all'; api.storage.set('faction', filter); document.querySelectorAll('[data-faction]').forEach(button => button.classList.toggle('active', button.dataset.faction === filter)); renderMap(); renderResults() }
+    function setFilter (value) { filter = ['all', 'violet', 'jaune', 'rouge', 'neutral'].includes(value) ? value : 'all'; api.storage.set('faction', filter); document.querySelectorAll('[data-faction]').forEach(button => button.classList.toggle('active', button.dataset.faction === filter)); renderMap(); renderResults() }
 
     $('atlas-list').onclick = () => { $('atlas-results').classList.toggle('open'); if ($('atlas-results').classList.contains('open')) $('atlas-search').focus(); renderResults() }
     $('atlas-search').oninput = () => { $('atlas-results').classList.add('open'); renderResults() }
     $('atlas-search').onfocus = () => { $('atlas-results').classList.add('open'); renderResults() }
     $('atlas-favorites').onclick = () => { favoritesOnly = !favoritesOnly; $('atlas-favorites').classList.toggle('active', favoritesOnly); $('atlas-results').classList.add('open'); renderResults() }
+    $('atlas-events').onclick = () => { showEvents = !showEvents; api.storage.set('showEvents', showEvents); refreshCounters(); renderMap() }
     $('atlas-minus').onclick = () => setZoom(zoom / 1.25)
     $('atlas-plus').onclick = () => setZoom(zoom * 1.25)
     $('atlas-reset').onclick = resetView
@@ -223,15 +263,14 @@ TanothAddon.register({
       const match = destinationCatalog().find(entry => entry.id === value.destination.id)
       if (match && match.id !== selectedId) { selectedId = match.id; api.storage.set('destination', selectedId); centerDestination(); renderMap(); renderRoute(); applyTransform() }
     })
-    api.on('state', value => { state = value; const count = questDestinations().length; $('atlas-quest-count').innerHTML = `<b>${count}</b> quête${count === 1 ? '' : 's'}`; renderMap(); renderRoute(); if ($('atlas-results').classList.contains('open')) renderResults() })
+    api.on('state', value => { state = value; refreshCounters(); renderMap(); renderRoute(); if ($('atlas-results').classList.contains('open')) renderResults() })
 
     setFilter(filter); renderMap(); renderRoute()
-    const initialQuestCount = questDestinations().length
-    $('atlas-quest-count').innerHTML = `<b>${initialQuestCount}</b> quête${initialQuestCount === 1 ? '' : 's'}`
+    refreshCounters()
     if (selectedId && destination()) centerDestination()
     applyTransform()
     await publishRoute(destination())
-    await api.ui.setTitle('Atlas Navigator — Toutes factions')
+    await api.ui.setTitle('Atlas Navigator 3 — Monde & événements')
     await api.ui.show()
   }
 })
