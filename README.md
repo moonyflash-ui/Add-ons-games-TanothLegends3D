@@ -11,7 +11,7 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 | --- | ---: | --- |
 | [`atlas-navigator`](atlas-navigator/) | 3.0.0 | Carte complète de 18 régions et 72 zones avec Empyrius, quêtes, Failles, Portes de la Mort et itinéraires. |
 | [`atlas-route-guide`](atlas-route-guide/) | 1.0.0 | Guide de terrain dépendant d’Atlas Navigator : flèche, cap, distance, danger, territoire adverse et arrivée. |
-| [`dark-fantasy-hud`](dark-fantasy-hud/) | 3.0.0 | HUD Dark Fantasy complet avec portrait 3D, mini-carte ronde ou carrée, flèche joueur, Moral par cases, armes, XP et suivis d’événements configurables. |
+| [`dark-fantasy-hud`](dark-fantasy-hud/) | 4.0.0 | HUD Dark Fantasy complet avec chat horodaté, mini-carte interactive, menus médiévaux, portrait 3D, Moral, armes, groupe et raid. |
 | [`dark-fantasy-world`](dark-fantasy-world/) | 2.3.0 | Personnages haute illusion, détails proches et articulations fluides sans modifier le rendu graphique du monde. |
 | [`rift-death-hud`](rift-death-hud/) | 1.1.0 | HUD compact pour les Failles et Portes de la Mort avec vagues, boss, chronomètres et guidage Atlas. |
 | [`kikimeter`](kikimeter/) | 1.0.0 | Dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat. |
@@ -42,7 +42,7 @@ Activez-le avec Atlas Navigator pour conserver une flèche compacte pendant vos 
 
 ### Dark Fantasy HUD
 
-Active un nouveau HUD pour le joueur et son familier, des cadres de groupe et de raid, une barre de compétences remaniée, la progression d’expérience mieux centrée et une mini-carte ronde par défaut ou carrée au choix. Le joueur est représenté par une flèche orientée et une destination Atlas apparaît directement sur la mini-carte.
+Active un nouveau HUD pour le joueur et son familier, des cadres de groupe et de raid, une barre de compétences remaniée et la progression d’expérience mieux centrée. La version 4.0 ajoute un chat médiéval repliable avec heure locale sur chaque message, des menus harmonisés et une mini-carte ronde ou carrée munie de commandes de zoom, d’une légende, des événements et de la destination Atlas.
 
 Les suivis **Failles du néant** et **Cimetières / Porte de la mort** sont masqués par défaut et peuvent être réactivés depuis le panneau. Les ensembles **Armes I** et **Armes II** sont espacés et harmonisés avec le style Dark Fantasy. Le Moral utilise des cases avec infobulles : un Boss ou une Élite donne `+5 %`. Une mort retire `−15 %` uniquement en Veteran, HellMode et Legends ; le mode normal conserve seulement le Moral positif.
 

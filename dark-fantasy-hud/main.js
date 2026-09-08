@@ -4,16 +4,20 @@ TanothAddon.register({
   async activate (api) {
     document.body.innerHTML = `
       <main class="panel">
-        <header><span class="sigil"><b>⚔</b></span><div><h1>HUD Dark Fantasy III</h1><p>Interface tactique médiévale complète</p></div><span class="live">ACTIF</span></header>
+        <header><span class="sigil"><b>⚔</b></span><div><h1>HUD Dark Fantasy IV</h1><p>Interface tactique médiévale complète</p></div><span class="live">ACTIF</span></header>
         <section class="preview">
           <div class="identity"><strong id="hero-name">Héros</strong><small id="hero-level">Niveau 1</small></div>
           <div class="bar hp"><i id="hero-hp"></i></div>
           <div class="bar mana"><i id="hero-mana"></i></div>
           <div class="status"><span id="party-count">Groupe 0</span><span id="raid-count">Raid 0</span><span id="morale-value">Moral 0 %</span><span id="pet-name">Sans familier</span></div>
         </section>
-        <section class="features"><span>◈ Portrait 3D réel</span><span>◈ Moral par cases</span><span>◈ Radar directionnel</span></section>
+        <section class="features"><span>◈ Chat horodaté</span><span>◈ Mini-carte interactive</span><span>◈ Menus médiévaux</span></section>
         <section class="settings">
+          <label class="toggle"><input id="chatHud" type="checkbox"> <span>Nouveau HUD du chat</span></label>
+          <label class="toggle"><input id="chatTimestamps" type="checkbox"> <span>Heure des messages</span></label>
+          <label class="toggle"><input id="menuSkin" type="checkbox"> <span>Nouveau style des menus</span></label>
           <label class="toggle"><input id="minimap" type="checkbox"> <span>Afficher la mini-carte</span></label>
+          <label class="toggle"><input id="mapTools" type="checkbox"> <span>Commandes sur la mini-carte</span></label>
           <label>Forme mini-carte<select id="mapShape"><option value="round">Ronde (défaut)</option><option value="square">Carrée</option></select></label>
           <label class="toggle"><input id="roster" type="checkbox"> <span>Groupe et raid</span></label>
           <label class="toggle"><input id="distances" type="checkbox"> <span>Distances des alliés</span></label>
@@ -28,8 +32,8 @@ TanothAddon.register({
         <p class="note" id="message" role="status">Chargement du HUD complet…</p>
       </main>`
 
-    const defaults = Object.freeze({ minimap: true, mapShape: 'round', roster: true, distances: true, eventTrackers: false, scale: 1, opacity: .94, mapSize: 220, mapRange: 300, raidColumns: 2 })
-    const controls = ['minimap', 'mapShape', 'roster', 'distances', 'eventTrackers', 'scale', 'opacity', 'mapSize', 'mapRange', 'raidColumns']
+    const defaults = Object.freeze({ chatHud: true, chatTimestamps: true, menuSkin: true, minimap: true, mapTools: true, mapShape: 'round', roster: true, distances: true, eventTrackers: false, scale: 1, opacity: .94, mapSize: 220, mapRange: 300, raidColumns: 2 })
+    const controls = ['chatHud', 'chatTimestamps', 'menuSkin', 'minimap', 'mapTools', 'mapShape', 'roster', 'distances', 'eventTrackers', 'scale', 'opacity', 'mapSize', 'mapRange', 'raidColumns']
     let current = { ...defaults, ...(await api.storage.get('settings') || {}) }
 
     const writeControls = settings => controls.forEach(id => {
@@ -38,7 +42,11 @@ TanothAddon.register({
       else node.value = String(settings[id])
     })
     const readControls = () => ({
+      chatHud: document.getElementById('chatHud').checked,
+      chatTimestamps: document.getElementById('chatTimestamps').checked,
+      menuSkin: document.getElementById('menuSkin').checked,
       minimap: document.getElementById('minimap').checked,
+      mapTools: document.getElementById('mapTools').checked,
       mapShape: document.getElementById('mapShape').value,
       roster: document.getElementById('roster').checked,
       distances: document.getElementById('distances').checked,
@@ -55,7 +63,7 @@ TanothAddon.register({
       current = readControls()
       await api.storage.set('settings', current)
       await api.game.action('applyHudPreset', { preset: 'dark-fantasy', enabled: true, ...current })
-      document.getElementById('message').textContent = 'HUD complet actif · aperçu 3D actualisé · données en temps réel.'
+      document.getElementById('message').textContent = 'HUD complet actif · chat horodaté · mini-carte interactive · menus harmonisés.'
     }
 
     const pct = (value, maximum) => Math.max(0, Math.min(100, (Number(value) || 0) / Math.max(1, Number(maximum) || 1) * 100))
@@ -78,7 +86,7 @@ TanothAddon.register({
     api.on('state', render)
     render(await api.game.getState())
     await apply()
-    await api.ui.setTitle('HUD Dark Fantasy III · Contrôle')
+    await api.ui.setTitle('HUD Dark Fantasy IV · Contrôle')
     await api.ui.show()
   },
   deactivate (api) {

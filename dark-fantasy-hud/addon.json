@@ -1,7 +1,7 @@
 {
   "id": "dark-fantasy-hud",
   "name": "HUD Dark Fantasy",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "apiVersion": 1,
   "minGameVersion": "41.0",
   "entry": "main.js",
@@ -15,6 +15,6 @@
     }
   ],
   "author": "Tanoth Legends 3D",
-  "description": "HUD Dark Fantasy complet : portrait 3D, mini-carte ronde ou carrée, flèche joueur, XP, armes, moral, groupe, raid et événements configurables.",
+  "description": "HUD Dark Fantasy complet : chat horodaté, menus médiévaux, portrait 3D, mini-carte interactive, XP, armes, moral, groupe et raid.",
   "enabledByDefault": false
 }

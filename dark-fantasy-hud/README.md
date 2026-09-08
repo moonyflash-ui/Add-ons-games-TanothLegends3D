@@ -1,4 +1,4 @@
-# HUD Dark Fantasy III
+# HUD Dark Fantasy IV
 
 Remplacement complet du HUD principal de Tanoth Legends 3D.
 
@@ -6,7 +6,16 @@ Remplacement complet du HUD principal de Tanoth Legends 3D.
 
 Le HUD dépend de **Chronomètre de Tanoth — Heure & FPS 1.0**. Le gestionnaire active et charge automatiquement ce module avant le HUD.
 
-## Améliorations 3.0
+## Améliorations 4.0
+
+- nouveau chat Dark Fantasy plus lisible, repliable et moins opaque ;
+- heure locale `HH:MM` ajoutée à chaque message reçu ou envoyé ;
+- onglets de discussion mieux différenciés et compteur de messages pendant le mode replié ;
+- mini-carte retravaillée avec relief, quadrillage, légende tactique et portée visible ;
+- commandes `−`, `+` et recentrage directement sur la mini-carte ;
+- menus et fenêtres harmonisés avec bordures médiévales, titres et boutons plus lisibles ;
+
+Les fonctions de la version 3.0 restent disponibles :
 
 - mini-carte ronde par défaut ou carrée au choix ;
 - véritable flèche orientée selon la direction du personnage ;
