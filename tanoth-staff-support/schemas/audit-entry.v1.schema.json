@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tanothlegends3d.invalid/schemas/staff-audit-entry.v1.json",
+  "title": "Tanoth Staff Audit Entry v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["auditId", "commandId", "action", "targetId", "authorId", "reason", "occurredAt", "decision"],
+  "properties": {
+    "auditId": { "type": "string", "minLength": 8, "maxLength": 96 },
+    "commandId": { "type": "string", "minLength": 8, "maxLength": 96 },
+    "action": { "type": "string", "minLength": 3, "maxLength": 64 },
+    "targetId": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "authorId": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "reason": { "type": "string", "minLength": 8, "maxLength": 240 },
+    "occurredAt": { "type": "integer", "minimum": 0 },
+    "decision": { "enum": ["requested", "approved", "rejected", "executed", "compensated"] },
+    "previousHash": { "type": ["string", "null"], "maxLength": 128 },
+    "entryHash": { "type": "string", "maxLength": 128 }
+  }
+}
+

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tanothlegends3d.invalid/schemas/staff-action.v1.json",
+  "title": "Tanoth Staff Action v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["commandId", "nonce", "action", "targetId", "reason", "occurredAt", "confirmed"],
+  "properties": {
+    "commandId": { "type": "string", "minLength": 8, "maxLength": 96 },
+    "nonce": { "type": "string", "minLength": 8, "maxLength": 96 },
+    "action": { "type": "string", "minLength": 3, "maxLength": 64 },
+    "targetId": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "reason": { "type": "string", "minLength": 8, "maxLength": 240 },
+    "durationSeconds": { "type": "integer", "minimum": 0, "maximum": 31536000 },
+    "occurredAt": { "type": "integer", "minimum": 0 },
+    "confirmed": { "type": "boolean" },
+    "doubleConfirmed": { "type": "boolean" },
+    "secondApproverId": { "type": "string", "maxLength": 96 }
+  }
+}
+

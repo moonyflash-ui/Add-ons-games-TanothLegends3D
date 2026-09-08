@@ -2,6 +2,8 @@
 
 > Audit officiel v54 : la compatibilité n’est pas encore certifiée à cause du numéro de jeu `41.0` encore publié par le pont Add-ons de la construction v54. Consultez [l’audit v54](COMPATIBILITY-v54.0.0.md) et le [contrat API demandé au jeu](GAME-API-CONTRACT-v54.0.0.md).
 
+La prochaine certification du hotfix est préparée dans [CERTIFICATION-PLAN-v54-HOTFIX.md](CERTIFICATION-PLAN-v54-HOTFIX.md). Les statuts restent `PENDING` jusqu’à réception et test du nouveau build.
+
 [![Validation des add-ons](https://github.com/moonyflash-ui/Add-ons-games-TanothLegends3D/actions/workflows/validate-addons.yml/badge.svg)](https://github.com/moonyflash-ui/Add-ons-games-TanothLegends3D/actions/workflows/validate-addons.yml)
 [![Licence GPL-2.0](https://img.shields.io/badge/licence-GPL--2.0-blue.svg)](LICENSE)
 
@@ -21,6 +23,7 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 | [`timekeeper-hud`](timekeeper-hud/) | 1.0.0 | Heure locale IRL, heure du monde et FPS réels dans un affichage compact qui ne masque pas l’action. |
 | [`exemple-hud`](exemple-hud/) | 1.0.0 | Exemple minimal pour apprendre à créer un add-on de HUD. |
 | [`tanoth-sentinel`](tanoth-sentinel/) | 1.0.0 | Capteur client DEV/local : signaux anormaux, rapports de bugs anonymisés, file bornée et contrat serveur anti-triche. |
+| [`tanoth-staff-support`](tanoth-staff-support/) | 1.0.0 | Prototype DEV d’aide joueur, tickets locaux, GS-IA fondée sur des articles approuvés et aperçus GS/GM sans privilège client. |
 
 ## Installation
 

@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tanothlegends3d.invalid/schemas/support-ticket.v1.json",
+  "title": "Tanoth Support Ticket v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schemaVersion", "ticketId", "environment", "status", "category", "priority", "accountId", "characterId", "realmId", "sessionId", "language", "description", "createdAt", "updatedAt", "fingerprint", "messages"],
+  "properties": {
+    "schema": { "const": "tanoth.support.ticket" },
+    "schemaVersion": { "const": 1 },
+    "ticketId": { "type": "string", "minLength": 8, "maxLength": 96 },
+    "environment": { "enum": ["DEV", "LIVE"] },
+    "status": { "enum": ["local-draft", "player-replied-local", "new", "waiting", "player-replied", "resolved", "escalated", "closed"] },
+    "category": { "type": "string", "minLength": 3, "maxLength": 32 },
+    "priority": { "enum": ["normal", "urgent-review", "high", "critical"] },
+    "accountId": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "characterId": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "realmId": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "sessionId": { "type": "string", "minLength": 1, "maxLength": 96 },
+    "language": { "type": "string", "pattern": "^[a-z]{2}(?:-[A-Z]{2})?$" },
+    "description": { "type": "string", "minLength": 12, "maxLength": 1400 },
+    "diagnostic": { "type": ["object", "null"] },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "updatedAt": { "type": "string", "format": "date-time" },
+    "fingerprint": { "type": "string", "maxLength": 80 },
+    "messages": { "type": "array", "maxItems": 40, "items": { "$ref": "message.v1.schema.json" } }
+  }
+}

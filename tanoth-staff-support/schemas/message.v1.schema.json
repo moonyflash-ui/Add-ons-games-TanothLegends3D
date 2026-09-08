@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://tanothlegends3d.invalid/schemas/support-message.v1.json",
+  "title": "Tanoth Support Message v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["messageId", "ticketId", "authorRole", "body", "createdAt"],
+  "properties": {
+    "messageId": { "type": "string", "minLength": 8, "maxLength": 96 },
+    "ticketId": { "type": "string", "minLength": 8, "maxLength": 96 },
+    "authorRole": { "enum": ["player", "gs", "gm", "ai"] },
+    "body": { "type": "string", "minLength": 1, "maxLength": 1200 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "delivery": { "enum": ["local-only", "queued", "sent", "acknowledged", "failed"] },
+    "articleCitations": { "type": "array", "maxItems": 5, "items": { "type": "object" } }
+  }
+}
+
