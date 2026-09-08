@@ -20,6 +20,7 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 | [`quest-helper`](quest-helper/) | 2.0.0 | Optimise la quête à suivre et synchronise automatiquement son itinéraire avec Atlas Navigator et Atlas Route Guide. |
 | [`timekeeper-hud`](timekeeper-hud/) | 1.0.0 | Heure locale IRL, heure du monde et FPS réels dans un affichage compact qui ne masque pas l’action. |
 | [`exemple-hud`](exemple-hud/) | 1.0.0 | Exemple minimal pour apprendre à créer un add-on de HUD. |
+| [`tanoth-sentinel`](tanoth-sentinel/) | 1.0.0 | Capteur client DEV/local : signaux anormaux, rapports de bugs anonymisés, file bornée et contrat serveur anti-triche. |
 
 ## Installation
 

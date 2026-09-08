@@ -1,0 +1,15 @@
+{
+  "id": "tanoth-sentinel",
+  "name": "Tanoth Sentinel — Anti-Triche & Sécurité",
+  "version": "1.0.0",
+  "apiVersion": 1,
+  "minGameVersion": "41.0",
+  "entry": "main.js",
+  "styles": ["style.css"],
+  "assets": [],
+  "permissions": ["game.read", "ui", "storage"],
+  "author": "Tanoth Legends 3D",
+  "description": "Capteur client de signaux anormaux et outil de rapport anonymisé. Mode DEV local uniquement tant que le backend autoritaire n’est pas disponible.",
+  "enabledByDefault": false
+}
+
