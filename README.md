@@ -12,7 +12,7 @@ Collection d’add-ons pour **Tanoth Legends 3D**. Ces extensions améliorent l�
 | [`atlas-navigator`](atlas-navigator/) | 2.0.0 | Carte universelle zoomable avec régions, zones, quêtes, favoris, coordonnées libres et publication d’itinéraires. |
 | [`atlas-route-guide`](atlas-route-guide/) | 1.0.0 | Guide de terrain dépendant d’Atlas Navigator : flèche, cap, distance, danger, territoire adverse et arrivée. |
 | [`dark-fantasy-hud`](dark-fantasy-hud/) | 3.0.0 | HUD Dark Fantasy complet avec portrait 3D, mini-carte ronde ou carrée, flèche joueur, Moral par cases, armes, XP et suivis d’événements configurables. |
-| [`dark-fantasy-world`](dark-fantasy-world/) | 1.0.0 | Ambiance médiévale Dark Fantasy pour les décors, ennemis, personnages, villages, villes et capitales. |
+| [`dark-fantasy-world`](dark-fantasy-world/) | 2.0.0 | Dark Fantasy confortable : lumière adaptative, brume maîtrisée et relief 3D doux des personnages. |
 | [`kikimeter`](kikimeter/) | 1.0.0 | Dégâts infligés et subis, DPS, soins donnés et reçus, sursoins et résurrections par combat. |
 | [`quest-helper`](quest-helper/) | 2.0.0 | Optimise la quête à suivre et synchronise automatiquement son itinéraire avec Atlas Navigator et Atlas Route Guide. |
 | [`timekeeper-hud`](timekeeper-hud/) | 1.0.0 | Heure locale IRL, heure du monde et FPS réels dans un affichage compact qui ne masque pas l’action. |
@@ -49,7 +49,7 @@ Le HUD charge automatiquement `timekeeper-hud`, sa dépendance d’affichage com
 
 ### Dark Fantasy World
 
-Applique au moteur 3D une palette sombre, une brume renforcée, un éclairage médiéval et des matériaux adaptés. Trois profils de qualité sont disponibles : `cinematic`, `balanced` et `performance`.
+Applique au moteur 3D une palette sombre plus douce, un éclairage chaud/froid équilibré, une brume réglable et un relief visuel pour mieux détacher les personnages du décor. Trois profils sont disponibles : **Confort** recommandé, **Immersif** et **Performance**. La lumière anti-fatigue et le relief 3D peuvent être désactivés séparément.
 
 ### KikiMeter
 
