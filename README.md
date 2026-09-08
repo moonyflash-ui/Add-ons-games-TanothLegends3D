@@ -1,5 +1,7 @@
 # Add-ons pour Tanoth Legends 3D
 
+> Audit officiel v54 : la compatibilité n’est pas encore certifiée à cause du numéro de jeu `41.0` encore publié par le pont Add-ons de la construction v54. Consultez [l’audit v54](COMPATIBILITY-v54.0.0.md) et le [contrat API demandé au jeu](GAME-API-CONTRACT-v54.0.0.md).
+
 [![Validation des add-ons](https://github.com/moonyflash-ui/Add-ons-games-TanothLegends3D/actions/workflows/validate-addons.yml/badge.svg)](https://github.com/moonyflash-ui/Add-ons-games-TanothLegends3D/actions/workflows/validate-addons.yml)
 [![Licence GPL-2.0](https://img.shields.io/badge/licence-GPL--2.0-blue.svg)](LICENSE)
 
