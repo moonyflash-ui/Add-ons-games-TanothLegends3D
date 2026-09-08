@@ -18,4 +18,3 @@
     "secondApproverId": { "type": "string", "maxLength": 96 }
   }
 }
-

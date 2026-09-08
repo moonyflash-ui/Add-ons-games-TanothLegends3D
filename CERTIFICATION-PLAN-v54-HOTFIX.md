@@ -58,4 +58,3 @@ Après les PASS réels seulement :
 - documenter les capacités vraiment présentes ;
 - conserver Sentinel et Support en DEV pour toute fonction backend absente ;
 - publier le tableau final avec preuve du build et captures.
-

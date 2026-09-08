@@ -18,4 +18,3 @@
     "entryHash": { "type": "string", "maxLength": 128 }
   }
 }
-

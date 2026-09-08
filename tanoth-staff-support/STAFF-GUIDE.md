@@ -35,4 +35,3 @@ Restauration économique, CrownBlood, suppression de personnage et bannissement 
 ## Sentinel
 
 Seul un incident Sentinel `HIGH` ou `CRITICAL` confirmé par le serveur peut apparaître dans la console GM. GS-IA peut le résumer à partir de données autorisées mais ne peut jamais sanctionner. Ticket, événement de sécurité et audit partagent des identifiants pour éviter les alertes Discord en double.
-

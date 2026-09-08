@@ -86,4 +86,3 @@ Consentement avant diagnostic, minimisation, pseudonymisation, rétention par ca
 - routes GS/GM, permissions, MFA et confirmations ;
 - journal append-only ;
 - lien Sentinel validé par serveur.
-

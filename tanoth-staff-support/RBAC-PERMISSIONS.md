@@ -36,4 +36,3 @@ Les rôles sont des affirmations serveur à durée limitée, jamais des réglage
 ```
 
 Même une réclamation reçue doit être revérifiée côté serveur lors de chaque commande. Le client ne vérifie pas seul une signature et ne possède pas de secret de validation.
-

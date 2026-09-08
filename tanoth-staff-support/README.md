@@ -49,4 +49,3 @@ Aucune clé IA, base de données, administration ou Discord ne se trouve dans l�
 node --test .\tanoth-staff-support\tests\support.test.cjs
 node .\tools\validate-addons.mjs
 ```
-

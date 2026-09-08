@@ -30,4 +30,3 @@
 - Discord sans doublon.
 
 Conclusion : **prototype DEV non autoritaire**. Aucun bouton de l’aperçu GS/GM n’exécute d’action.
-

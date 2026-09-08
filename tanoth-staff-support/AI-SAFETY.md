@@ -35,4 +35,3 @@ Le service tickets humain reste fonctionnel. L’interface affiche l’indisponi
 ## Résumé Sentinel
 
 L’IA peut résumer un incident déjà validé et minimisé par le serveur. Elle ne peut ni reclasser seule un signal comme triche confirmée ni déclencher une sanction.
-
